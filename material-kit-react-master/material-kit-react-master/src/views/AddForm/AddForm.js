@@ -1,17 +1,17 @@
 import React from "react";
 // @material-ui/core components
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
 import Person from "@material-ui/icons/Person";
-import LockOpen from "@material-ui/icons/LockOpen";
-import User from "@material-ui/icons/AccountBox";
+import SearchIcon from "@material-ui/icons/Search";
+import Human from "@material-ui/icons/Accessibility";
 
 // core components
+import Header from "components/Header/Header.js";
+import HeaderLinks from "components/Header/HeaderLinks.js";
+import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
@@ -21,20 +21,28 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
-import styles from "assets/jss/material-kit-react/views/loginPage.js";
+import styles from "assets/jss/material-kit-react/views/addForm.js";
 
 import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function RegistrationPage(props) {
+export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
+  const { ...rest } = props;
   return (
     <div>
+      <Header
+        absolute
+        color="info"
+        brand="Shaun Was Here"
+        rightLinks={<HeaderLinks />}
+        {...rest}
+      />
       <div
         className={classes.pageHeader}
         style={{
@@ -50,17 +58,11 @@ export default function RegistrationPage(props) {
                 <form className={classes.form}>
                   <CardHeader color="info" className={classes.cardHeader}>
                     <h3 style={{ marginTop: "2rem", fontWeight: "bold" }}>
-                      REGISTRATION
+                      ADD AN ACTOR
                     </h3>
                     <div className={classes.socialLine}>
                       <div style={{ textAlign: "center" }}>
-                        <Button type="button" color="default" simple>
-                          <i
-                            className={" fab fa-google"}
-                            style={{ marginRight: ".5rem" }}
-                          />
-                          Click here to Login with Google
-                        </Button>
+                        <h6>ENTER ACTOR MEASUREMENTS BELOW</h6>
                       </div>
                     </div>
                   </CardHeader>
@@ -90,7 +92,7 @@ export default function RegistrationPage(props) {
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
-                            <People className={classes.inputIconsColor} />
+                            <Person className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
                       }}
@@ -111,59 +113,81 @@ export default function RegistrationPage(props) {
                       }}
                     />
                     <CustomInput
-                      labelText="Password"
-                      id="pass"
+                      labelText="Height"
+                      id="height"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
-                        type: "password",
+                        type: "height",
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Icon className={classes.inputIconsColor}>
-                              lock_outline
-                            </Icon>
+                            <Human className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
                         autoComplete: "off",
                       }}
                     />
                     <CustomInput
-                      labelText="Reenter Password"
-                      id="pass"
+                      labelText="Weight"
+                      id="weight"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
-                        type: "password",
+                        type: "weight",
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Icon position="end">
-                              <LockOpen className={classes.inputIconsColor} />
-                            </Icon>
+                            <Human className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
                         autoComplete: "off",
                       }}
                     />
-                    <div style={{ textAlign: "center" }}>
-                      <Button justify="center" type="button" color="info">
-                        Register
-                      </Button>
-                    </div>
+                    <CustomInput
+                      labelText="Chest"
+                      id="chest"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "chest",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Human className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
+                        autoComplete: "off",
+                      }}
+                    />
+                    <CustomInput
+                      labelText="Waist"
+                      id="waist"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "waist",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Human className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
+                        autoComplete: "off",
+                      }}
+                    />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Link to={"/login-page"} className={classes.link}>
-                      <Button color="info" simple>
-                        Click here to Login
-                      </Button>
-                    </Link>
+                    <Button justify="center" type="button" color="info">
+                      Add Actor
+                    </Button>
                   </CardFooter>
                 </form>
               </Card>
             </GridItem>
           </GridContainer>
-          </div>
+        </div>
+        <Footer whiteFont />
       </div>
     </div>
   );
