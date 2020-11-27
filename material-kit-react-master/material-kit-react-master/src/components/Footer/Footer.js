@@ -5,7 +5,9 @@ import PropTypes from "prop-types";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // material-ui core components
-import { List, ListItem } from "@material-ui/core";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
@@ -33,16 +35,7 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/?ref=mkr-footer"
-                className={classes.block}
-                target="_blank"
-              >
-                Creative Tim
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="https://www.creative-tim.com/presentation?ref=mkr-footer"
+                href="/"
                 className={classes.block}
                 target="_blank"
               >
@@ -51,35 +44,42 @@ export default function Footer(props) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="http://blog.creative-tim.com/?ref=mkr-footer"
+                href="/"
                 className={classes.block}
                 target="_blank"
               >
-                Blog
+                <i className={classes.socialIcons + " fab fa-facebook"} />
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/license?ref=mkr-footer"
+                href="/"
                 className={classes.block}
                 target="_blank"
               >
-                Licenses
+                <i className={classes.socialIcons + " fab fa-instagram"} />
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="/"
+                className={classes.block}
+                target="_blank"
+              >
+                <i className={classes.socialIcons + " fab fa-twitter"} />
               </a>
             </ListItem>
           </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} , made with{" "}
-          <Favorite className={classes.icon} /> by{" "}
+          &copy; {1900 + new Date().getYear()}{" "}
           <a
-            href="https://www.creative-tim.com?ref=mkr-footer"
+            href="/"
             className={aClasses}
             target="_blank"
           >
-            Creative Tim
-          </a>{" "}
-          for a better web.
+            The Blood Falcons
+          </a>
         </div>
       </div>
     </footer>
@@ -89,3 +89,5 @@ export default function Footer(props) {
 Footer.propTypes = {
   whiteFont: PropTypes.bool
 };
+
+

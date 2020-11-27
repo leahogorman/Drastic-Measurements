@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useState, useRef, useContext } from "react";
+import AuthContext, { AuthProvider } from "views/AuthProvider/authprovider.js";
+import firebase from "firebase/app";
+
+import { useHistory } from "react-router-dom";
+
 // @material-ui/core components
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
-import Person from '@material-ui/icons/Person';
-import LockOpen from '@material-ui/icons/LockOpen';
-
+import User from "@material-ui/icons/AccountBox";
 // core components
-import Header from "components/Header/Header.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
-import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
@@ -28,22 +27,51 @@ import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function LoginPage(props) {
+function LoginPage(props) {
+  const history = useHistory();
+  const auth = useContext(AuthContext);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const user = auth.user;
+  const {
+    signOut,
+    signInWithGoogle,
+    signInWithEmailAndPassword,
+  } = auth.methods;
+
+  console.log(props);
+  const googleLogin = (e) => {
+    e.preventDefault();
+    signInWithGoogle(e);
+  };
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      history.push("add-form");
+    }
+  });
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    let email = emailRef.current.value;
+    let password = passwordRef.current.value;
+    let results = await signInWithEmailAndPassword(email, password);
+    console.log(results);
+  }
+
+  // const getUserDetails = () => {
+  //   if (!user) return "NO USER";
+  //   else return `Welcome ${user.displayName}!`;
+  // };
+
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
-  const { ...rest } = props;
   return (
     <div>
-      <Header
-        absolute
-        color="info"
-        brand="Leah O'Gorman Was Here"
-        rightLinks={<HeaderLinks />}
-        {...rest}
-      />
       <div
         className={classes.pageHeader}
         style={{
@@ -54,67 +82,40 @@ export default function LoginPage(props) {
       >
         <div className={classes.container}>
           <GridContainer justify="center">
-            <GridItem xs={12} sm={12} md={4}>
+            <GridItem xs={12} sm={12} md={8}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="info" className={classes.cardHeader}>
                     <h3 style={{ marginTop: "2rem", fontWeight: "bold" }}>
-                      REGISTRATION
+                      LOGIN
                     </h3>
                     <div className={classes.socialLine}>
                       <div style={{ textAlign: "center" }}>
-                        <Button type="button" color="default" simple>
-                          <i
-                            className={" fab fa-google"}
-                            style={{ marginRight: ".5rem" }}
-                          />
-                          Click here to Login with Google
-                        </Button>
+                        <button onClick={googleLogin}>
+                          <Button type="button" color="default">
+                            <i
+                              className={" fab fa-google"}
+                              style={{ marginRight: ".5rem" }}
+                            />
+                            Click here to Login with Google
+                          </Button>
+                        </button>
                       </div>
                     </div>
                   </CardHeader>
                   <CardBody>
                     <CustomInput
-                      labelText="First Name..."
-                      id="first"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Person className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Last Name..."
-                      id="first"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <People className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                    <CustomInput
                       labelText="Email..."
-                      id="email"
+                      id="first"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
-                        type: "email",
+                        type: "text",
+                        inputRef: emailRef,
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
+                            <User className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
                       }}
@@ -127,6 +128,7 @@ export default function LoginPage(props) {
                       }}
                       inputProps={{
                         type: "password",
+                        inputRef: passwordRef,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Icon className={classes.inputIconsColor}>
@@ -137,42 +139,28 @@ export default function LoginPage(props) {
                         autoComplete: "off",
                       }}
                     />
-                    <CustomInput
-                      labelText="Reenter Password"
-                      id="pass"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "password",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Icon position="end">
-                            <LockOpen className={classes.inputIconsColor} />
-                            </Icon>
-                          </InputAdornment>
-                        ),
-                        autoComplete: "off",
-                      }}
-                    />
                     <div style={{ textAlign: "center" }}>
-                      <Button justify="center" type="button" color="info">
-                        Register
-                      </Button>
+                      <button onClick={handleSubmit}>
+                        <Button justify="center" type="button" color="info">
+                          Login
+                        </Button>
+                      </button>
                     </div>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button color="info" simple>
-                      Click here to Login
-                    </Button>
+                    <Link to={"/registration-page"} className={classes.link}>
+                      <Button color="info" simple>
+                        Click here to Register
+                      </Button>
+                    </Link>
                   </CardFooter>
                 </form>
               </Card>
             </GridItem>
           </GridContainer>
         </div>
-        <Footer whiteFont />
       </div>
     </div>
   );
 }
+export default LoginPage;
