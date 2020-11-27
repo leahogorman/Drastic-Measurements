@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState, useRef} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -17,19 +17,36 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
+import { GetActorByFirstName } from 'utils/API';
+
 import styles from "assets/jss/material-kit-react/views/searchPage.js";
 
 import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function LoginPage(props) {
+function searchPage(props) {
+  const search = useRef();
+  const [searchedActor, setSearchedActor] = useState([])
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
+  
+  const handleFormSubmit = async function(event) {
+    event.preventDefault();
+    let searchValue = search.current.value;
+    try {
+      let results = await GetActorByFirstName(searchValue);
+      setSearchedActor(results.data.ActorMany)
+      console.log(results);
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
   return (
     <div>
       <Header
@@ -71,6 +88,7 @@ export default function LoginPage(props) {
                       }}
                       inputProps={{
                         type: "text",
+                        inputRef: search,
                         endAdornment: (
                           <InputAdornment position="end">
                             <SearchIcon className={classes.inputIconsColor} />
@@ -79,10 +97,21 @@ export default function LoginPage(props) {
                       }}
                     />
                     <div style={{ textAlign: "center" }}>
-                      <Button justify="center" type="button" color="info">
+                      <Button onClick={handleFormSubmit} justify="center" type="button" color="info">
                         Find Actor
                       </Button>
                     </div>
+                    {searchedActor.length ? (
+              <ul>
+                {searchedActor.map(actor => {
+                  return (
+                    <li>{actor.firstname} {actor.lastname}</li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
                   </CardBody>
                 </form>
               </Card>
@@ -94,3 +123,5 @@ export default function LoginPage(props) {
     </div>
   );
 }
+
+export default searchPage;

@@ -20,20 +20,25 @@ const getRates = function(currency) {
   });
 };
 
-const getActor = function() {
+const getActorByFirstName = function(first) {
   return client.query({
     query: gql`
       query {
-          ActorMany {
-            firstname
+        ActorMany(filter:{
+          firstname:"${first}"
+        }) {
+          firstname
+          lastname
+          measurements {
+            chest
+            waist
+            weight
           }
-          ActorOne {
-            firstname
-          }
+        }        
       }
     `
   });
 };
 
 export const GetRates = getRates;
-export const GetActor = getActor;
+export const GetActorByFirstName = getActorByFirstName;
