@@ -29,7 +29,7 @@ import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-function AddActor(props) {
+function InsertActor(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [actor, setActor] = useState({
     firstname: "",
@@ -41,28 +41,36 @@ function AddActor(props) {
     }
   })
   function handleInputChange(event) {
+
+    //This function takes a flattened object and turns it into a standard object 
+    // https://stackoverflow.com/questions/42694980/how-to-unflatten-a-javascript-object-in-a-daisy-chain-dot-notation-into-an-objec
+    let unflatten = function (data) {
+      var result = {}
+      for (var i in data) {
+        var keys = i.split('.')
+        keys.reduce(function(r, e, j) {
+          return r[e] || (r[e] = isNaN(Number(keys[j + 1])) ? (keys.length - 1 == j ? data[i] : {}) : [])
+        }, result)
+      }
+      return result
+    }
+
     console.log('handleInputChange')
-    const { id, value } = event.target
+    const { id, value } = event.target;
+    console.log(id, value, unflatten({...actor, [id]: value}))
     setActor({...actor, [id]: value})
     console.log("Id and Value are", id,value)
   }
 
  const handleFormSubmit = async function(event){
+   console.log("button clicked");
    event.preventDefault();
+
+
    
    try {
-    let results = await AddActor(actor
-    //   {
-    //   firstname: actor.firstname,
-    //   lastname: actor.lastname,
-    //   measurements:{
-    //     chest:actor.measurements.chest,
-    //     waist:actor.measurements.waist,
-    //     weight:actor.measurements.weight
-    //   }
-    // }
-    );
-    
+    let results = await AddActor(actor );
+  
     console.log(results);
   } catch(err) {
     console.error(err);
@@ -115,6 +123,7 @@ function AddActor(props) {
                       }}
                       inputProps={{
                         type: "text",
+                        onChange: handleInputChange,
                         endAdornment: (
                           <InputAdornment position="end">
                             <SearchIcon className={classes.inputIconsColor} />
@@ -122,16 +131,16 @@ function AddActor(props) {
                         ),
                       }}
                     />
-                    <Input
+                    <CustomInput
                       labelText="First Name..."
-                      id="first"
-                      onChange={handleInputChange}
+                      id="firstname"
                       value={actor.firstname}
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         type: "text",
+                        onChange: handleInputChange,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Person className={classes.inputIconsColor} />
@@ -141,7 +150,7 @@ function AddActor(props) {
                     />
                     <CustomInput
                       labelText="Last Name..."
-                      id="last"
+                      id="lastname"
                       onChange={handleInputChange}
                       value={actor.lastname}
                       formControlProps={{
@@ -149,6 +158,7 @@ function AddActor(props) {
                       }}
                       inputProps={{
                         type: "text",
+                        onChange: handleInputChange,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Person className={classes.inputIconsColor} />
@@ -164,6 +174,7 @@ function AddActor(props) {
                       }}
                       inputProps={{
                         type: "email",
+                        onChange: handleInputChange,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Email className={classes.inputIconsColor} />
@@ -179,6 +190,7 @@ function AddActor(props) {
                       }}
                       inputProps={{
                         type: "height",
+                        onChange: handleInputChange,
                         
                         // endAdornment: (
                         //   <InputAdornment position="end">
@@ -200,6 +212,7 @@ function AddActor(props) {
                       }}
                       inputProps={{
                         type: "weight",
+                        onChange: handleInputChange,
                       
                         // endAdornment: (
                         //   <InputAdornment position="end">
@@ -215,12 +228,13 @@ function AddActor(props) {
                       labelText="Chest"
                       id="chest"
                       onChange={handleInputChange}
-                      value={...actor.measurements.chest}
+                      value={actor.measurements.chest}
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         type: "chest",
+                        onChange: handleInputChange,
                         // endAdornment: (
                         //   <InputAdornment position="end">
                         //     <Icon position="end">
@@ -235,12 +249,13 @@ function AddActor(props) {
                       labelText="Waist"
                       id="waist"
                       onChange={handleInputChange}
-                        value={...actor.measurements.waist}
+                        value={actor.measurements.waist}
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         type: "waist",
+                        onChange: handleInputChange,
                         // endAdornment: (
                         //   <InputAdornment position="end">
                         //     <Icon position="end">
@@ -258,7 +273,7 @@ function AddActor(props) {
                     </div>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button onclick={handleFormSubmit} color="info" simple>
+                    <Button onClick={handleFormSubmit} color="info" simple>
                       Add Actor
                     </Button>
                   </CardFooter>
@@ -272,9 +287,5 @@ function AddActor(props) {
     </div>
   );
 }
-<<<<<<< HEAD
 
 export default InsertActor;
-=======
-export default AddActor;
->>>>>>> 25d385c6090a6009458622c2855f52662ffc4d93

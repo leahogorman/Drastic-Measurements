@@ -41,19 +41,24 @@ const getActorByFirstName = function(first) {
 };
 
 const addActor = function(actor){
-  return client.mutation({
+  console.log(actor);
+  return client.mutate({
     mutation: gql `
      mutation{
-       ActorCreateOne(record:{
+      ActorCreateOne(record:{
          firstname:"${actor.firstname}"
          lastname:"${actor.lastname}"
-         measurements:{
-           chest:"${actor.measurements.chest}"
-           waist:"${actor.measurements.waist}"
-           weight"${actor.measurements.weight}"
-         }
-       })
-       firstname
+         measurements:[{
+           chest:${actor.measurements.chest}
+           waist:${actor.measurements.waist}
+           weight:${actor.measurements.weight}
+         }]
+       }) {
+        recordId
+        record {
+          firstname
+        }
+       }       
      }`
   })
 }

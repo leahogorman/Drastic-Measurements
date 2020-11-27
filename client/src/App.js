@@ -15,7 +15,7 @@ import AuthContext, { AuthProvider } from "views/AuthProvider/authprovider.js";
 // pages for this product
 import LandingPage from "views/LandingPage/LandingPage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
-import AddForm from "views/AddForm/AddForm.js";
+import InsertActor from "views/AddActor/AddActor.js";
 import SearchPage from "views/SearchPage/SearchPage.js";
 import RegistrationPage from "./views/RegistrationPage/RegistrationPage.js";
 
@@ -55,7 +55,7 @@ function App(props) {
         <Switch>
           <Route path="/landing-page" component={LandingPage} />
           <Route path="/login-page" component={LoginPage} />
-          <Route path="/add-form" component={AddForm} />
+          <Route path="/add-form" component={InsertActor} />
           <Route path="/search-page" component={SearchPage} />
           <Route path="/" component={RegistrationPage} />
         </Switch>
