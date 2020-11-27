@@ -29,7 +29,7 @@ import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function LoginPage(props) {
+function AddForm(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
@@ -196,3 +196,4 @@ export default function LoginPage(props) {
     </div>
   );
 }
+export default AddForm;

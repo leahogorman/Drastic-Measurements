@@ -21,7 +21,7 @@ const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 
-export default function LandingPage(props) {
+function Dashboard(props) {
   const classes = useStyles();
   const { ...rest } = props;
   return (
@@ -64,3 +64,5 @@ export default function LandingPage(props) {
     </div>
   );
 }
+
+export default Dashboard;
