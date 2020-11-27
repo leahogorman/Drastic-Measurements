@@ -105,7 +105,6 @@ function LoginPage(props) {
                   </CardHeader>
                   <CardBody>
                     <CustomInput
-                      ref={emailRef}
                       labelText="Email..."
                       id="first"
                       formControlProps={{
@@ -113,6 +112,7 @@ function LoginPage(props) {
                       }}
                       inputProps={{
                         type: "text",
+                        inputRef: emailRef,
                         endAdornment: (
                           <InputAdornment position="end">
                             <User className={classes.inputIconsColor} />
@@ -121,7 +121,6 @@ function LoginPage(props) {
                       }}
                     />
                     <CustomInput
-                      ref={passwordRef}
                       labelText="Password"
                       id="pass"
                       formControlProps={{
@@ -129,6 +128,7 @@ function LoginPage(props) {
                       }}
                       inputProps={{
                         type: "password",
+                        inputRef: passwordRef,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Icon className={classes.inputIconsColor}>

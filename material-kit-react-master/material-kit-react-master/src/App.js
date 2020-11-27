@@ -1,7 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 
-// import { createBrowserHistory } from "history";
+import { createBrowserHistory } from "history";
 
 import "assets/scss/material-kit-react.scss?v=1.9.0";
 
@@ -19,15 +19,13 @@ import AddForm from "views/AddForm/AddForm.js";
 import SearchPage from "views/SearchPage/SearchPage.js";
 import RegistrationPage from "./views/RegistrationPage/RegistrationPage.js";
 
-// var hist = createBrowserHistory;
+const hist = createBrowserHistory();
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
-
-console.log(firebaseApp)
 
 function App(props) {
   const {
@@ -53,7 +51,7 @@ function App(props) {
 
   return (
     <AuthProvider value={auth}>
-      <Router> 
+      <Router history={hist}> 
         <Switch>
           <Route path="/landing-page" component={LandingPage} />
           <Route path="/login-page" component={LoginPage} />

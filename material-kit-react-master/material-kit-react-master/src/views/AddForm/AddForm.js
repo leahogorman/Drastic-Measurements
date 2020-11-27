@@ -8,6 +8,8 @@ import Person from "@material-ui/icons/Person";
 import SearchIcon from "@material-ui/icons/Search";
 import Human from "@material-ui/icons/Accessibility";
 
+import firebase from "firebase/app";
+
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";

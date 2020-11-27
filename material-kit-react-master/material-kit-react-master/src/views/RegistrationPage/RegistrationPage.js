@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
 // @material-ui/core components
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
@@ -10,6 +10,10 @@ import People from "@material-ui/icons/People";
 import Person from "@material-ui/icons/Person";
 import LockOpen from "@material-ui/icons/LockOpen";
 import User from "@material-ui/icons/AccountBox";
+
+import AuthContext, { AuthProvider } from "views/AuthProvider/authprovider.js";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
@@ -28,10 +32,53 @@ import image from "assets/img/bg7.jpg";
 const useStyles = makeStyles(styles);
 
 export default function RegistrationPage(props) {
+
+  const history = useHistory();
+  const auth = useContext(AuthContext);
+  const form = {
+    email: useRef(),
+    first: useRef(),
+    last: useRef(),
+    password: useRef(),
+    password_reentered: useRef(),
+  };
+
+  const {
+    user,
+    methods
+  } = auth;
+
+  const {
+    createUserWithEmailAndPassword
+  } = methods;
+
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
+
+
+
+  const handleRegistration = async function(e) {
+    e.preventDefault();            
+    let first = form.first.current.value;
+    let last = form.last.current.value;
+    let email = form.email.current.value;
+    let password = form.password.current.value;
+    let password_reentered = form.password_reentered.current.value;
+
+    firebase.auth().onAuthStateChanged(async function(user) {
+        if (user) {
+            await user.updateProfile({
+                displayName: `${first} ${last}`
+            });
+            history.push('/add-form');
+        }
+    });
+
+    let newUser = await firebase.auth().createUserWithEmailAndPassword(email, password);        
+  };
+
   const classes = useStyles();
   return (
     <div>
@@ -73,6 +120,7 @@ export default function RegistrationPage(props) {
                       }}
                       inputProps={{
                         type: "text",
+                        inputRef: form.first,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Person className={classes.inputIconsColor} />
@@ -82,12 +130,13 @@ export default function RegistrationPage(props) {
                     />
                     <CustomInput
                       labelText="Last Name..."
-                      id="first"
+                      id="last"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         type: "text",
+                        inputRef: form.last,
                         endAdornment: (
                           <InputAdornment position="end">
                             <People className={classes.inputIconsColor} />
@@ -100,9 +149,10 @@ export default function RegistrationPage(props) {
                       id="email"
                       formControlProps={{
                         fullWidth: true,
-                      }}
+                      }}                      
                       inputProps={{
                         type: "email",
+                        inputRef: form.email,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Email className={classes.inputIconsColor} />
@@ -118,6 +168,7 @@ export default function RegistrationPage(props) {
                       }}
                       inputProps={{
                         type: "password",
+                        inputRef: form.password,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Icon className={classes.inputIconsColor}>
@@ -130,12 +181,13 @@ export default function RegistrationPage(props) {
                     />
                     <CustomInput
                       labelText="Reenter Password"
-                      id="pass"
+                      id="pass2"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         type: "password",
+                        inputRef: form.password_reentered,
                         endAdornment: (
                           <InputAdornment position="end">
                             <Icon position="end">
@@ -147,7 +199,7 @@ export default function RegistrationPage(props) {
                       }}
                     />
                     <div style={{ textAlign: "center" }}>
-                      <Button justify="center" type="button" color="info">
+                      <Button onClick={handleRegistration} justify="center" type="button" color="info">
                         Register
                       </Button>
                     </div>
