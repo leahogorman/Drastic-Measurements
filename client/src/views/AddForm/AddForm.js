@@ -27,6 +27,8 @@ import styles from "assets/jss/material-kit-react/views/addForm.js";
 
 import image from "assets/img/bg7.jpg";
 
+import { GetRates, GetActor} from "utils/API";
+
 const useStyles = makeStyles(styles);
 
 export default function LoginPage(props) {
@@ -34,6 +36,18 @@ export default function LoginPage(props) {
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
+
+  const getRates = async () => {
+    try {
+      let results = await GetActor();
+      console.log(results);
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  getRates();
+
   const classes = useStyles();
   const { ...rest } = props;
   return (
