@@ -29,7 +29,7 @@ import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-function InsertActor(props) {
+function AddActor(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [actor, setActor] = useState({
     firstname: "",
@@ -272,5 +272,9 @@ function InsertActor(props) {
     </div>
   );
 }
+<<<<<<< HEAD
 
 export default InsertActor;
+=======
+export default AddActor;
+>>>>>>> 25d385c6090a6009458622c2855f52662ffc4d93

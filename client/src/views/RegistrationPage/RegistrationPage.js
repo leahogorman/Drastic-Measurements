@@ -31,7 +31,7 @@ import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function RegistrationPage(props) {
+function RegistrationPage(props) {
 
   const history = useHistory();
   const auth = useContext(AuthContext);
@@ -220,3 +220,4 @@ export default function RegistrationPage(props) {
     </div>
   );
 }
+export default RegistrationPage;
