@@ -25,7 +25,7 @@ import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-function searchPage(props) {
+function SearchPage(props) {
   const search = useRef();
   const [searchedActor, setSearchedActor] = useState([])
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
@@ -124,4 +124,4 @@ function searchPage(props) {
   );
 }
 
-export default searchPage;
+export default SearchPage;
