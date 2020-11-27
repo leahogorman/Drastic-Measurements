@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -19,6 +19,9 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
+import Input from "@material-ui/core/Input"
+
+import { AddActor} from 'utils/API';
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
@@ -26,8 +29,46 @@ import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function LoginPage(props) {
+function InsertActor(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  const [actor, setActor] = useState({
+    firstname: "",
+    lastname: "",
+    measurements:{
+      chest:"",
+      waist:"",
+      weight:""
+    }
+  })
+  function handleInputChange(event) {
+    console.log('handleInputChange')
+    const { id, value } = event.target
+    setActor({...actor, [id]: value})
+    console.log("Id and Value are", id,value)
+  }
+
+ const handleFormSubmit = async function(event){
+   event.preventDefault();
+   
+   try {
+    let results = await AddActor(actor
+    //   {
+    //   firstname: actor.firstname,
+    //   lastname: actor.lastname,
+    //   measurements:{
+    //     chest:actor.measurements.chest,
+    //     waist:actor.measurements.waist,
+    //     weight:actor.measurements.weight
+    //   }
+    // }
+    );
+    
+    console.log(results);
+  } catch(err) {
+    console.error(err);
+  }
+
+  }
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -68,7 +109,7 @@ export default function LoginPage(props) {
                   <CardBody>
                     <CustomInput
                       labelText="Search Actor..."
-                      id="first"
+                      id="search"
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -81,9 +122,11 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
-                    <CustomInput
+                    <Input
                       labelText="First Name..."
                       id="first"
+                      onChange={handleInputChange}
+                      value={actor.firstname}
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -98,7 +141,9 @@ export default function LoginPage(props) {
                     />
                     <CustomInput
                       labelText="Last Name..."
-                      id="first"
+                      id="last"
+                      onChange={handleInputChange}
+                      value={actor.lastname}
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -134,6 +179,7 @@ export default function LoginPage(props) {
                       }}
                       inputProps={{
                         type: "height",
+                        
                         // endAdornment: (
                         //   <InputAdornment position="end">
                         //     <Icon className={classes.inputIconsColor}>
@@ -147,11 +193,14 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Weight"
                       id="weight"
+                      onChange={handleInputChange}
+                      value={actor.measurements.weight}
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         type: "weight",
+                      
                         // endAdornment: (
                         //   <InputAdornment position="end">
                         //     <Icon position="end">
@@ -165,6 +214,8 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Chest"
                       id="chest"
+                      onChange={handleInputChange}
+                      value={...actor.measurements.chest}
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -183,6 +234,8 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Waist"
                       id="waist"
+                      onChange={handleInputChange}
+                        value={...actor.measurements.waist}
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -205,7 +258,7 @@ export default function LoginPage(props) {
                     </div>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button color="info" simple>
+                    <Button onclick={handleFormSubmit} color="info" simple>
                       Add Actor
                     </Button>
                   </CardFooter>
@@ -219,3 +272,5 @@ export default function LoginPage(props) {
     </div>
   );
 }
+
+export default InsertActor;
