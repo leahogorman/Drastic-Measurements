@@ -3,8 +3,10 @@ import { Router, Switch, Route } from "react-router-dom";
 
 import { createBrowserHistory } from "history";
 
-import "assets/scss/material-kit-react.scss?v=1.9.0";
+// Styles
+import "assets/scss/material-kit-react.scss";
 
+// Firebase for login function
 import withFirebaseAuth from "react-with-firebase-auth";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -12,10 +14,10 @@ import firebaseConfig from "./firebaseConfig";
 
 import AuthContext, { AuthProvider } from "views/AuthProvider/authprovider.js";
 
-// pages for this product
-import LandingPage from "views/LandingPage/LandingPage.js";
+// View Pages
+import Dashboard from "views/Dashboard/Dashboard.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
-import InsertActor from "views/AddActor/AddActor.js";
+import AddActor from "views/AddActor/AddActor.js";
 import SearchPage from "views/SearchPage/SearchPage.js";
 import RegistrationPage from "./views/RegistrationPage/RegistrationPage.js";
 
@@ -53,11 +55,11 @@ function App(props) {
     <AuthProvider value={auth}>
       <Router history={hist}> 
         <Switch>
-          <Route path="/landing-page" component={LandingPage} />
-          <Route path="/login-page" component={LoginPage} />
-          <Route path="/add-form" component={InsertActor} />
-          <Route path="/search-page" component={SearchPage} />
-          <Route path="/" component={RegistrationPage} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/login-page" component={LoginPage} />
+          <Route exact path="/add-actor" component={AddActor} />
+          <Route exact path="/search-page" component={SearchPage} />
+          <Route exact path="/" component={RegistrationPage} />
         </Switch>
        </Router>       
     </AuthProvider>

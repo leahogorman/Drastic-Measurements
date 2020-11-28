@@ -19,7 +19,7 @@ import { Apps, CloudDownload } from "@material-ui/icons";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import Button from "components/CustomButtons/Button.js";
 
-import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
+import styles from "assets/jss/components/headerLinksStyle.js";
 
 const useStyles = makeStyles(styles);
 
@@ -59,7 +59,7 @@ function HeaderLinks() {
           }}
           buttonIcon={Apps}
           dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
+            <Link to="/dashboard" className={classes.dropdownLink}>
               Home Page
             </Link>,
             <Link to="/search-page" className={classes.dropdownLink}>
@@ -94,15 +94,60 @@ function HeaderLinks() {
         />) }
       </ListItem> 
       <ListItem className={classes.listItem}>
-        <Button
-          href=""
+        <Button 
+          to="/"
           color="transparent"
           target="_blank"
-          className={classes.navLink}
-        >
-          <CloudDownload className={classes.icons} /> Download the App here
-        </Button>
+          className={classes.navLink}>
+          <Link to="/add-actor" className={classes.dropdownLink}>
+              Home
+          </Link>
+          </Button>
       </ListItem>
+      <ListItem className={classes.listItem}>
+        <Button 
+          to="/"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}>
+          <Link to="/add-actor" className={classes.dropdownLink}>
+              Add an Actor
+          </Link>
+          </Button>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Button 
+          to="/"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}>
+          <Link to="/search-page" className={classes.dropdownLink}>
+              Search
+          </Link>
+          </Button>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+      {user ? 
+        (
+          <Button 
+          to="/"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}>
+          <Link to="/search-page" className={classes.dropdownLink}>
+              
+          </Link>
+         </Button>) : (
+          <Button 
+          to="/"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}>
+          <Link to="/search-page" className={classes.dropdownLink}>
+              Login
+          </Link>
+          </Button>)}
+</ListItem>
     </List>
   );
 }

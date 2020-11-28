@@ -3,9 +3,7 @@ import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
 import Person from "@material-ui/icons/Person";
-import SearchIcon from "@material-ui/icons/Search";
 
 // core components
 import Header from "components/Header/Header.js";
@@ -19,13 +17,12 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-import Input from "@material-ui/core/Input"
 
 import { AddActor} from 'utils/API';
 
-import styles from "assets/jss/material-kit-react/views/loginPage.js";
+import styles from "assets/jss/views/addActor.js";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/bg2.jpg";
 
 const useStyles = makeStyles(styles);
 

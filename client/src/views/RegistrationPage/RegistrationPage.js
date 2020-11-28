@@ -9,7 +9,6 @@ import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 import Person from "@material-ui/icons/Person";
 import LockOpen from "@material-ui/icons/LockOpen";
-import User from "@material-ui/icons/AccountBox";
 
 import AuthContext, { AuthProvider } from "views/AuthProvider/authprovider.js";
 import firebase from 'firebase/app';
@@ -25,7 +24,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
-import styles from "assets/jss/material-kit-react/views/loginPage.js";
+import styles from "assets/jss/views/loginPage.js";
 
 import image from "assets/img/bg7.jpg";
 

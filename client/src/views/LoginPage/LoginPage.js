@@ -4,14 +4,14 @@ import firebase from "firebase/app";
 
 import { useHistory } from "react-router-dom";
 
-// @material-ui/core components
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
+// Icons
 import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
 import User from "@material-ui/icons/AccountBox";
-// core components
+
+// Components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
@@ -21,8 +21,10 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
-import styles from "assets/jss/material-kit-react/views/loginPage.js";
+// styles
+import styles from "assets/jss/views/loginPage.js";
 
+// Background Image
 import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
