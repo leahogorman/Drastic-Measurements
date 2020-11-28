@@ -69,7 +69,7 @@ function InsertActor(props) {
 
    
    try {
-    let results = await AddActor(actor );
+    let results = await AddActor(actor);
   
     console.log(results);
   } catch(err) {
@@ -87,7 +87,7 @@ function InsertActor(props) {
       <Header
         absolute
         color="info"
-        brand="Shaun Was Here"
+        brand="Blood Falcon Project 3"
         rightLinks={<HeaderLinks />}
         {...rest}
       />
@@ -101,7 +101,7 @@ function InsertActor(props) {
       >
         <div className={classes.container}>
           <GridContainer justify="center">
-            <GridItem xs={12} sm={12} md={4}>
+            <GridItem xs={12} sm={12} md={8}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="info" className={classes.cardHeader}>
@@ -115,22 +115,8 @@ function InsertActor(props) {
                     </div>
                   </CardHeader>
                   <CardBody>
-                    <CustomInput
-                      labelText="Search Actor..."
-                      id="search"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        onChange: handleInputChange,
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <SearchIcon className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
+                <GridContainer justify="center">
+                    <GridItem xs={12} sm={6} md={6} lg={6}>
                     <CustomInput
                       labelText="First Name..."
                       id="firstname"
@@ -148,6 +134,8 @@ function InsertActor(props) {
                         ),
                       }}
                     />
+                    </GridItem>
+                    <GridItem xs={12} sm={6} md={6} lg={6}>
                     <CustomInput
                       labelText="Last Name..."
                       id="lastname"
@@ -166,45 +154,12 @@ function InsertActor(props) {
                         ),
                       }}
                     />
-                    <CustomInput
-                      labelText="Email..."
-                      id="email"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "email",
-                        onChange: handleInputChange,
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Height"
-                      id="height"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "height",
-                        onChange: handleInputChange,
-                        
-                        // endAdornment: (
-                        //   <InputAdornment position="end">
-                        //     <Icon className={classes.inputIconsColor}>
-                        //       lock_outline
-                        //     </Icon>
-                        //   </InputAdornment>
-                        // ),
-                        autoComplete: "off",
-                      }}
-                    />
+                    </GridItem>
+                   
+                    <GridItem xs={12} sm={6} md={6} lg={6}>
                     <CustomInput
                       labelText="Weight"
-                      id="weight"
+                      id="measurements.weight"
                       onChange={handleInputChange}
                       value={actor.measurements.weight}
                       formControlProps={{
@@ -214,19 +169,15 @@ function InsertActor(props) {
                         type: "weight",
                         onChange: handleInputChange,
                       
-                        // endAdornment: (
-                        //   <InputAdornment position="end">
-                        //     <Icon position="end">
-                        //       <LockOpen className={classes.inputIconsColor} />
-                        //     </Icon>
-                        //   </InputAdornment>
-                        // ),
+                        
                         autoComplete: "off",
                       }}
                     />
+                    </GridItem>
+                    <GridItem xs={12} sm={6} md={6} lg={6}>
                     <CustomInput
                       labelText="Chest"
-                      id="chest"
+                      id="measurements.chest"
                       onChange={handleInputChange}
                       value={actor.measurements.chest}
                       formControlProps={{
@@ -235,19 +186,15 @@ function InsertActor(props) {
                       inputProps={{
                         type: "chest",
                         onChange: handleInputChange,
-                        // endAdornment: (
-                        //   <InputAdornment position="end">
-                        //     <Icon position="end">
-                        //       <LockOpen className={classes.inputIconsColor} />
-                        //     </Icon>
-                        //   </InputAdornment>
-                        // ),
+                       
                         autoComplete: "off",
                       }}
                     />
+                    </GridItem>
+                    <GridItem xs={12} sm={6} md={6} lg={6}>
                     <CustomInput
                       labelText="Waist"
-                      id="waist"
+                      id="measurements.waist"
                       onChange={handleInputChange}
                         value={actor.measurements.waist}
                       formControlProps={{
@@ -256,24 +203,18 @@ function InsertActor(props) {
                       inputProps={{
                         type: "waist",
                         onChange: handleInputChange,
-                        // endAdornment: (
-                        //   <InputAdornment position="end">
-                        //     <Icon position="end">
-                        //       <LockOpen className={classes.inputIconsColor} />
-                        //     </Icon>
-                        //   </InputAdornment>
-                        // ),
+                        
                         autoComplete: "off",
                       }}
                     />
-                    <div style={{ textAlign: "center" }}>
-                      <Button justify="center" type="button" color="info">
-                        Register
-                      </Button>
-                    </div>
+                    </GridItem>
+
+                </GridContainer>
+
+                    
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button onClick={handleFormSubmit} color="info" simple>
+                    <Button onClick={handleFormSubmit} color="info" >
                       Add Actor
                     </Button>
                   </CardFooter>

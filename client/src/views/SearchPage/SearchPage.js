@@ -101,14 +101,46 @@ function SearchPage(props) {
                         Find Actor
                       </Button>
                     </div>
+                    
                     {searchedActor.length ? (
-              <ul>
+              <div className={classes.section}>
                 {searchedActor.map(actor => {
                   return (
-                    <li>{actor.firstname} {actor.lastname}</li>
+                   <Card>
+                    <GridContainer justify="center">
+                        <GridItem xs={12} sm={12} md={8}>
+                            <h2 className={classes.title}>Actor Name</h2>
+                        </GridItem>
+                    </GridContainer>
+                        <GridContainer justify="center">
+                            <GridItem xs={12} sm={3} md={3}>
+                                <h4>{actor.firstname}</h4>
+                            </GridItem>
+                            <GridItem xs={12} sm={3} md={3}>
+                                <h4>{actor.lastname}</h4>
+                            </GridItem>
+                        </GridContainer>
+                            <GridContainer justify="center">
+                        <GridItem xs={12} sm={12} md={8}>
+                            <h2 className={classes.title}>Measurements</h2>
+                        </GridItem>
+                    </GridContainer>
+                    <GridContainer justify="center">
+                    <GridItem xs={12} sm={3} md={3}>
+                                <h4>{actor.measurements[0].chest}</h4>
+                            </GridItem>
+                            <GridItem xs={12} sm={3} md={3}>
+                                <h4>{actor.measurements[0].waist}</h4>
+                            </GridItem>
+                            <GridItem xs={12} sm={3} md={3}>
+                                <h4>{actor.measurements[0].weight}</h4>
+                            </GridItem>
+                        </GridContainer>
+                        </Card>
+                    
                   );
                 })}
-              </ul>
+              </div>
             ) : (
               <h3>No Results to Display</h3>
             )}

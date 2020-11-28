@@ -62,6 +62,7 @@ const addActor = function(actor){
      }`
   })
 }
+console.log(addActor)
 
 export const GetRates = getRates;
 export const GetActorByFirstName = getActorByFirstName;
