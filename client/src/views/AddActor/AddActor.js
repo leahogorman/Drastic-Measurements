@@ -55,6 +55,8 @@ function InsertActor(props) {
       return result
     }
 
+    
+
     console.log('handleInputChange')
     const { id, value } = event.target;
     console.log(id, value, unflatten({...actor, [id]: value}))

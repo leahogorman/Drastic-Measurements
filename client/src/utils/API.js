@@ -64,6 +64,24 @@ const addActor = function(actor){
 }
 console.log(addActor)
 
+//delete actor by MongoDB _id
+const deleteActor = function(actor){
+console.log(actor);
+return client.mutate({
+  mutation: gql `
+  mutation{
+    ActorRemoveById(
+      _id:"${actor._id}"
+    ){
+      recordId
+      record{
+      firstname
+    }}
+  }`
+})
+}
+
 export const GetRates = getRates;
 export const GetActorByFirstName = getActorByFirstName;
 export const AddActor = addActor;
+export const DeleteActor = deleteActor
