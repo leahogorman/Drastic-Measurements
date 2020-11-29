@@ -1,4 +1,6 @@
 import React,{useState} from "react";
+import axios from "axios";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -24,6 +26,11 @@ import styles from "assets/jss/views/addActor.js";
 
 import image from "assets/img/bg2.jpg";
 
+const rapidAPIHeaders = {
+  "x-rapidapi-host": "contextualwebsearch-websearch-v1.p.rapidapi.com",
+  "x-rapidapi-key": "aa57de8da2msh886a93f00274292p191c06jsn1d67d9615903"
+};
+
 const useStyles = makeStyles(styles);
 
 function InsertActor(props) {
@@ -31,42 +38,48 @@ function InsertActor(props) {
   const [actor, setActor] = useState({
     firstname: "",
     lastname: "",
+    image:"",
     measurements:{
       chest:"",
       waist:"",
       weight:""
     }
   })
-  function handleInputChange(event) {
 
-    //This function takes a flattened object and turns it into a standard object 
-    // https://stackoverflow.com/questions/42694980/how-to-unflatten-a-javascript-object-in-a-daisy-chain-dot-notation-into-an-objec
-    let unflatten = function (data) {
-      var result = {}
-      for (var i in data) {
-        var keys = i.split('.')
-        keys.reduce(function(r, e, j) {
-          return r[e] || (r[e] = isNaN(Number(keys[j + 1])) ? (keys.length - 1 == j ? data[i] : {}) : [])
-        }, result)
-      }
-      return result
+  async function getActorImage(name){
+    const options = {
+      method: 'GET',
+      url: 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI',
+      params: {pageNumber: '1', pageSize: '10', q:name, autoCorrect: 'true'},
+      headers: rapidAPIHeaders
+    };
+    try {
+      return (await axios.request(options)).data;
+    } catch(error) {      
+      console.error(error);
     }
+  }
 
-    
+ 
 
-    console.log('handleInputChange')
-    const { id, value } = event.target;
-    console.log(id, value, unflatten({...actor, [id]: value}))
-    setActor({...actor, [id]: value})
-    console.log("Id and Value are", id,value)
+  function handleInputChange(event) {
+    let { id, value } = event.target;
+    if(id.startsWith('measurements.')) {
+      actor.measurements[id.split('.')[1]] = value
+      setActor(actor);
+    } else {
+      setActor({...actor, [id]: value})
+    }
   }
 
  const handleFormSubmit = async function(event){
    console.log("button clicked");
    event.preventDefault();
-
-
-   
+   let imageResult = await getActorImage(`${actor.firstname} ${actor.lastname}`);
+   console.log(imageResult);
+   let imgurl = imageResult.value[0].url
+   console.log(imgurl);
+   actor.image = imgurl;
    try {
     let results = await AddActor(actor);
   

@@ -13,6 +13,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
+import Avatar from "components/Avatar/Avatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
@@ -36,10 +37,6 @@ function SearchPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
 
-  // useEffect(() => {
-  //   let searchValue = search.current.value;
-  //   GetActorByFirstName(searchValue);
-  // }, [])
 
   const handleFormSubmit = async function (event) {
     event.preventDefault();
@@ -132,6 +129,9 @@ function SearchPage(props) {
                                   <br></br>
                                   <h2 className={classes.title}>Actor Name</h2>
                                 </GridItem>
+                              </GridContainer>
+                              <GridContainer justify="center">
+                              <Avatar alt={`${actor.firstname} ${actor.lastname}`} src={actor.image} />
                               </GridContainer>
                               <GridContainer justify="center">
                                 <GridItem xs={12} sm={3} md={3}>

@@ -30,6 +30,7 @@ const getActorByFirstName = function(first) {
           _id
           firstname
           lastname
+          image
           measurements {
             chest
             waist
@@ -49,6 +50,7 @@ const addActor = function(actor){
       ActorCreateOne(record:{
          firstname:"${actor.firstname}"
          lastname:"${actor.lastname}"
+         image:"${actor.image}"
          measurements:[{
            chest:${actor.measurements.chest}
            waist:${actor.measurements.waist}
