@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -18,6 +18,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
 import { GetActorByFirstName } from 'utils/API';
+import { DeleteActor } from 'utils/API';
 
 import styles from "assets/jss/views/searchPage.js";
 
@@ -35,6 +36,11 @@ function SearchPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
 
+  // useEffect(() => {
+  //   let searchValue = search.current.value;
+  //   GetActorByFirstName(searchValue);
+  // }, [])
+
   const handleFormSubmit = async function (event) {
     event.preventDefault();
     let searchValue = search.current.value;
@@ -45,6 +51,15 @@ function SearchPage(props) {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  async function removeActor(id){
+    console.log(id);
+    let results = await DeleteActor(id);
+    console.log(results);
+    setSearchedActor(
+      searchedActor.filter((actor) => actor._id !== id)
+    );
   }
 
   return (
@@ -110,7 +125,7 @@ function SearchPage(props) {
                               <GridContainer justify="center">
                                 <GridItem xs={12} sm={12} md={8}>
                                   <div>
-                                    <Button size="sm" className={classes.round} style={{ float: "right" }} type="button" color="danger">
+                                    <Button size="sm" onClick={()=>removeActor(actor._id)} className={classes.round} style={{ float: "right" }} type="button" color="danger">
                                       X
                                     </Button>
                                   </div>
@@ -144,7 +159,7 @@ function SearchPage(props) {
                               </GridContainer>
                               <div style={{ textAlign: "center" }}>
                                 <Button justify="center" type="button" color="info">
-                                  Edit Actor
+                                  Edit
                                 </Button>
                               </div>
                               <br></br>

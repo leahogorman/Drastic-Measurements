@@ -27,6 +27,7 @@ const getActorByFirstName = function(first) {
         ActorMany(filter:{
           firstname:"${first}"
         }) {
+          _id
           firstname
           lastname
           measurements {
@@ -65,13 +66,13 @@ const addActor = function(actor){
 console.log(addActor)
 
 //delete actor by MongoDB _id
-const deleteActor = function(actor){
-console.log(actor);
+const deleteActor = function(id){
+console.log("test", id);
 return client.mutate({
   mutation: gql `
   mutation{
     ActorRemoveById(
-      _id:"${actor._id}"
+      _id:"${id}"
     ){
       recordId
       record{
@@ -81,7 +82,38 @@ return client.mutate({
 })
 }
 
+const updateActor = function(args,id){
+  return client.mutate({
+    mutation:gql `
+    mutation{
+        ActorUpdateById(record:{
+      		 _id:"${id}"
+          firstname:""
+          lastname:""
+          measurements:[{
+            chest:
+            waist:
+            weight:
+          }]
+        }){
+          recordId
+          record{
+            firstname
+            lastname
+            measurements{
+              chest
+              waist
+              weight
+            }
+          }  
+        }
+      }
+    `
+  })
+}
+
 export const GetRates = getRates;
 export const GetActorByFirstName = getActorByFirstName;
 export const AddActor = addActor;
-export const DeleteActor = deleteActor
+export const DeleteActor = deleteActor;
+export const UpdateActor = updateActor;

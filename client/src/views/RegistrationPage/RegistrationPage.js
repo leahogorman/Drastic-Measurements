@@ -71,7 +71,7 @@ function RegistrationPage(props) {
             await user.updateProfile({
                 displayName: `${first} ${last}`
             });
-            history.push('/add-form');
+            history.push('/add-actor');
         }
     });
 

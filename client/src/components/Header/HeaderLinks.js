@@ -65,7 +65,7 @@ function HeaderLinks() {
             <Link to="/search-page" className={classes.dropdownLink}>
                Search Page
             </Link>,
-              <Link to="/add-form" className={classes.dropdownLink}>
+              <Link to="/add-actor" className={classes.dropdownLink}>
               Add an Actor
             </Link>,
              <Link to="#" className={classes.dropdownLink} onClick={handleSignOut}>
