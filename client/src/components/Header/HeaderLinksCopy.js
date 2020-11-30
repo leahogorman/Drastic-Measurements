@@ -37,22 +37,73 @@ function HeaderLinks() {
 
   const handleSignOut = (e) => {
     e.preventDefault();
-    console.log("HandleSignout Called")
     firebase.auth().onAuthStateChanged(function (user) {
       if (!user) {
-        console.log("No User Found, redirecting to route")
-
         window.location.href = '/';
       }
     });
-    console.log("calling signOut")
     signOut(); 
   }
 
   const classes = useStyles();
   return (
     <List className={classes.list}>
-
+      <ListItem className={classes.listItem}>
+        {user ? 
+        (<CustomDropdown
+          noLiPadding
+          buttonText=""
+          buttonProps={{
+            className: classes.navLink,
+            color: "transparent"
+          }}
+          buttonIcon={Apps}
+          dropdownList={[
+            <Link to="/dashboard" className={classes.dropdownLink}>
+              Home Page
+            </Link>,
+            <Link to="/search-page" className={classes.dropdownLink}>
+               Search Page
+            </Link>,
+              <Link to="/add-actor" className={classes.dropdownLink}>
+              Add an Actor
+            </Link>,
+             <Link to="#" className={classes.dropdownLink} onClick={handleSignOut}>
+             Logout
+           </Link>,
+          ]}
+        />) : (<CustomDropdown
+          noLiPadding
+          buttonText=""
+          buttonProps={{
+            className: classes.navLink,
+            color: "transparent"
+          }}
+          buttonIcon={Apps}
+          dropdownList={[
+            <Link to="/" className={classes.dropdownLink}>
+            Home Page
+          </Link>,
+            <Link to="/" className={classes.dropdownLink}>
+              Registration Page
+            </Link>,
+              <Link to="/login-page" className={classes.dropdownLink}>
+              Login Page
+            </Link>,
+          ]}
+        />) }
+      </ListItem> 
+      <ListItem className={classes.listItem}>
+        <Button 
+          to="/"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}>
+          <Link to="/add-actor" className={classes.dropdownLink}>
+              Home
+          </Link>
+          </Button>
+      </ListItem>
       <ListItem className={classes.listItem}>
         <Button 
           to="/"
@@ -75,17 +126,6 @@ function HeaderLinks() {
           </Link>
           </Button>
       </ListItem>
-      {/* <ListItem className={classes.listItem}>
-        <Button 
-          to="/"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}>
-          <Link to="#" className={classes.dropdownLink} onClick={handleSignOut}>
-              Logout
-          </Link>
-          </Button>
-      </ListItem> */}
       <ListItem className={classes.listItem}>
       {user ? 
         (
@@ -94,8 +134,8 @@ function HeaderLinks() {
           color="transparent"
           target="_blank"
           className={classes.navLink}>
-          <Link to="#" className={classes.dropdownLink} onClick={handleSignOut}>
-             Logout 
+          <Link to="/search-page" className={classes.dropdownLink}>
+              
           </Link>
          </Button>) : (
           <Button 
@@ -103,7 +143,7 @@ function HeaderLinks() {
           color="transparent"
           target="_blank"
           className={classes.navLink}>
-          <Link to="/" className={classes.dropdownLink}>
+          <Link to="/search-page" className={classes.dropdownLink}>
               Login
           </Link>
           </Button>)}

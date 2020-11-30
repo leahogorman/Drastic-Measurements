@@ -56,10 +56,10 @@ function App(props) {
       <Router history={hist}> 
         <Switch>
           <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/login-page" component={LoginPage} />
+          <Route exact path="/" component={LoginPage} />
           <Route exact path="/add-actor" component={AddActor} />
           <Route exact path="/search-page" component={SearchPage} />
-          <Route exact path="/" component={RegistrationPage} />
+          <Route exact path="/registration-page" component={RegistrationPage} />
         </Switch>
        </Router>       
     </AuthProvider>

@@ -71,7 +71,7 @@ function RegistrationPage(props) {
             await user.updateProfile({
                 displayName: `${first} ${last}`
             });
-            history.push('/add-actor');
+            history.push('/dashboard');
         }
     });
 
@@ -98,17 +98,7 @@ function RegistrationPage(props) {
                     <h3 style={{ marginTop: "2rem", fontWeight: "bold" }}>
                       REGISTRATION
                     </h3>
-                    <div className={classes.socialLine}>
-                      <div style={{ textAlign: "center" }}>
-                        <Button type="button" color="default" simple>
-                          <i
-                            className={" fab fa-google"}
-                            style={{ marginRight: ".5rem" }}
-                          />
-                          Click here to Login with Google
-                        </Button>
-                      </div>
-                    </div>
+                   
                   </CardHeader>
                   <CardBody>
                     <CustomInput
@@ -204,7 +194,7 @@ function RegistrationPage(props) {
                     </div>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Link to={"/login-page"} className={classes.link}>
+                    <Link to={"/"} className={classes.link}>
                       <Button color="info" simple>
                         Click here to Login
                       </Button>

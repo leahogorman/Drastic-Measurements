@@ -20,6 +20,8 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
+
+
 import { AddActor} from 'utils/API';
 
 import styles from "assets/jss/views/addActor.js";
@@ -32,6 +34,7 @@ const rapidAPIHeaders = {
 };
 
 const useStyles = makeStyles(styles);
+
 
 function InsertActor(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
@@ -226,10 +229,10 @@ function InsertActor(props) {
                     
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button onClick={handleFormSubmit} color="info" >
+                  <Button color="info"  onClick={handleFormSubmit} >
                       Add Actor
                     </Button>
-                  </CardFooter>
+                 </CardFooter>
                 </form>
               </Card>
             </GridItem>

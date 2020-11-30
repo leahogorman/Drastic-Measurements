@@ -50,7 +50,7 @@ function LoginPage(props) {
 
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      history.push("add-actor");
+      history.push("/dashboard");
     }
   });
 
