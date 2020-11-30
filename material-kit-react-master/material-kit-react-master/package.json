@@ -15,17 +15,31 @@
     "node-sass": "4.14.1",
     "nouislider": "14.5.0",
     "prop-types": "15.7.2",
+<<<<<<< Updated upstream:material-kit-react-master/material-kit-react-master/package.json
     "react": "16.13.1",
     "react-datetime": "2.16.3",
     "react-dom": "16.13.1",
+=======
+    "react": "^16.13.1",
+    "react-datetime": "^2.16.3",
+    "react-dom": "^16.13.1",
+    "react-modal": "^3.12.1",
+>>>>>>> Stashed changes:client/package.json
     "react-refresh": "^0.9.0",
     "react-reveal": "^1.2.2",
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.1",
     "react-scroll": "^1.8.1",
+<<<<<<< Updated upstream:material-kit-react-master/material-kit-react-master/package.json
     "react-slick": "0.26.1",
     "react-swipeable-views": "0.13.9",
     "react-with-firebase-auth": "^1.3.2"
+=======
+    "react-slick": "^0.26.1",
+    "react-swipeable-views": "^0.13.9",
+    "react-with-firebase-auth": "^1.3.2",
+    "typescript": "3.9.3"
+>>>>>>> Stashed changes:client/package.json
   },
   "devDependencies": {
     "@babel/cli": "7.10.1",

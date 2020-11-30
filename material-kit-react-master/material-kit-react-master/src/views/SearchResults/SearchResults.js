@@ -202,6 +202,8 @@ export default function LoginPage(props) {
                       <Button justify="center" type="button" color="info">
                         Find Actor
                       </Button>
+
+                      
                     </div>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>

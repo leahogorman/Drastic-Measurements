@@ -18,6 +18,7 @@ import LoginPage from "views/LoginPage/LoginPage.js";
 import AddForm from "views/AddForm/AddForm.js";
 import SearchPage from "views/SearchPage/SearchPage.js";
 import RegistrationPage from "./views/RegistrationPage/RegistrationPage.js";
+import BuildPage from "./views/BuildPage/BuildPage"
 
 const hist = createBrowserHistory();
 const firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -57,7 +58,8 @@ function App(props) {
           <Route path="/login-page" component={LoginPage} />
           <Route path="/add-form" component={AddForm} />
           <Route path="/search-page" component={SearchPage} />
-          <Route path="/" component={RegistrationPage} />
+          <Route exact path="/" component={RegistrationPage} />
+          <Route exact path="/build-page" component={BuildPage} />
         </Switch>
        </Router>       
     </AuthProvider>

@@ -3,9 +3,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
 import Person from "@material-ui/icons/Person";
-import SearchIcon from "@material-ui/icons/Search";
 
 // core components
 import Header from "components/Header/Header.js";
@@ -19,6 +17,15 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
+<<<<<<< Updated upstream:material-kit-react-master/material-kit-react-master/src/views/AddActor/AddActor.js
+=======
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
+
+import { AddActor} from 'utils/API';
+>>>>>>> Stashed changes:client/src/views/AddActor/AddActor.js
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
@@ -32,6 +39,8 @@ export default function LoginPage(props) {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
+
+  const [classicModal, setClassicModal] = React.useState(false);
   const { ...rest } = props;
   return (
     <div>
@@ -205,9 +214,49 @@ export default function LoginPage(props) {
                     </div>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
+<<<<<<< Updated upstream:material-kit-react-master/material-kit-react-master/src/views/AddActor/AddActor.js
                     <Button color="info" simple>
+=======
+                    <Button color="info" handleFormSubmit onClick={ ()=> {
+                      setClassicModal(true)
+                      }} >
+>>>>>>> Stashed changes:client/src/views/AddActor/AddActor.js
                       Add Actor
                     </Button>
+
+                    <Dialog
+                  classes={{
+                    root: classes.center,
+                    paper: classes.modal,
+                  }}
+                  open={classicModal}
+                  keepMounted
+                  onClose={() => setClassicModal(false)}
+                  aria-labelledby="classic-modal-slide-title"
+                  aria-describedby="classic-modal-slide-description"
+                >
+                  <DialogTitle
+                    id="classic-modal-slide-title"
+                    disableTypography
+                    className={classes.modalHeader}
+                  >
+                  </DialogTitle>
+                  <DialogContent
+                    id="classic-modal-slide-description"
+                    className={classes.modalBody}
+                  >
+                    <h5>Actor Added Successfully!!!</h5>
+                  </DialogContent>
+                  <DialogActions className={classes.modalFooter}>
+                    <Button
+                      onClick={() => setClassicModal(false)}
+                      color="danger"
+                      simple
+                    >
+                      Close
+                    </Button>
+                  </DialogActions>
+                </Dialog>
                   </CardFooter>
                 </form>
               </Card>
