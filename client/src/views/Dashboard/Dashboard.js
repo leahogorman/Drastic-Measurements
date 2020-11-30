@@ -19,32 +19,34 @@ const useStyles = makeStyles(styles);
 
 function Dashboard(props) {
   const auth = useContext(AuthContext);
-  const {
-    user,
-    methods
-  } = auth;
+  const user = auth.user;
+  const signOut = auth.methods;  
+  
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (!user) {
+      window.location.href = '/';
+    }
+  });
+  
 
-  const {
-    signOut
-  } = methods;
-
-  const handleSignOut = (e) => {
+  const  handleSignOut = async(e) => {
     e.preventDefault();
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (!user) {
-        window.location.href = '/';
-      }
-    });
-    signOut(); 
+    
+    await firebase.auth().signOut()
+      console.log("sign out successful")
+   
+
+  
   }
-  console.log("hello", user)
+  
+  console.log("user is", user)
   const classes = useStyles();
   const { ...rest } = props;
   return (
     <div>
       <Parallax className={classes.parallaxDashboard}>
         <div className={classes.container}>
-          <h2 className={classes.welcome}>Welcome {user.displayName} </h2>
+          <h2 className={classes.welcome}>Welcome {user?user.displayName:""} </h2>
           <div className={classes.logout}>
       {user ? 
         (

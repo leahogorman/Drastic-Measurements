@@ -19,6 +19,10 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
 
 
 
@@ -97,6 +101,7 @@ function InsertActor(props) {
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
+  const [classicModal, setClassicModal] = React.useState(false);
   return (
     <div>
       <Header
@@ -226,12 +231,55 @@ function InsertActor(props) {
 
                 </GridContainer>
 
+                {/* <Button onClick={handleFormSubmit} color="info" >
+                      Add Actor
+                    </Button> */}
+
                     
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                  <Button color="info"  onClick={handleFormSubmit} >
+                  <Button color="info"  onClick={ (event)=> {
+                      setClassicModal(true) ;
+                      handleFormSubmit(event)
+                      
+                      }} >
                       Add Actor
                     </Button>
+                    <Dialog
+                  classes={{
+                    root: classes.center,
+                    paper: classes.modal,
+                  }}
+                  open={classicModal}
+                  keepMounted
+                  onClose={() => setClassicModal(false)}
+                  aria-labelledby="classic-modal-slide-title"
+                  aria-describedby="classic-modal-slide-description"
+                >
+                  <DialogContent
+                    id="classic-modal-slide-description"
+                    className={classes.modalBody}
+                  >
+                    <h5>Actor Added Successfully!!!</h5>
+                  </DialogContent>
+                  <DialogActions className={classes.modalFooter}>
+                    <Button
+                      onClick={() => setClassicModal(false)}
+                      color="danger"
+                      simple
+                    >
+                      Close
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+
+
+
+
+
+
+
+                  
                  </CardFooter>
                 </form>
               </Card>

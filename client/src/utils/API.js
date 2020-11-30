@@ -84,19 +84,20 @@ return client.mutate({
 })
 }
 
-const updateActor = function(args,id){
+const updateActor = function(id,actor){
+  console.log(actor);
   return client.mutate({
     mutation:gql `
     mutation{
         ActorUpdateById(record:{
-      		 _id:"${id}"
-          firstname:""
-          lastname:""
-          measurements:[{
-            chest:
-            waist:
-            weight:
-          }]
+           _id:"${id}"
+           firstname:"${actor.firstname}"
+           lastname:"${actor.lastname}"
+           measurements:[{
+            chest:${actor.measurements[0].chest}
+            waist:${actor.measurements[0].waist}
+            weight:${actor.measurements[0].weight}
+          }]   
         }){
           recordId
           record{

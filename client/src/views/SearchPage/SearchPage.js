@@ -17,9 +17,14 @@ import Avatar from "components/Avatar/Avatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
 
 import { GetActorByFirstName } from 'utils/API';
 import { DeleteActor } from 'utils/API';
+import { UpdateActor } from 'utils/API';
 
 import styles from "assets/jss/views/searchPage.js";
 
@@ -31,6 +36,8 @@ function SearchPage(props) {
   const search = useRef();
   const [searchedActor, setSearchedActor] = useState([])
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  //trying here first
+  const [classicModal, setClassicModal] = React.useState(false);
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -57,6 +64,12 @@ function SearchPage(props) {
     setSearchedActor(
       searchedActor.filter((actor) => actor._id !== id)
     );
+  }
+
+  async function updateMeasurement(id,actor){
+    console.log(id);
+    let updatedMeasurement = await UpdateActor(id,actor);
+    console.log(updatedMeasurement);
   }
 
   return (
@@ -158,7 +171,7 @@ function SearchPage(props) {
                                 </GridItem>
                               </GridContainer>
                               <div style={{ textAlign: "center" }}>
-                                <Button justify="center" type="button" color="info">
+                                <Button justify="center" type="button" color="info"onClick={()=>updateMeasurement(actor._id,actor)}>
                                   Edit
                                 </Button>
                               </div>
