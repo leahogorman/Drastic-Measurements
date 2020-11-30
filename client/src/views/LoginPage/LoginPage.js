@@ -25,7 +25,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "assets/jss/views/loginPage.js";
 
 // Background Image
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/100.jpg";
 
 const useStyles = makeStyles(styles);
 

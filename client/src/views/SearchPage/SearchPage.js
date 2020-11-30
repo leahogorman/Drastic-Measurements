@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -17,7 +17,7 @@ import Avatar from "components/Avatar/Avatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-import DialogTitle from "@material-ui/core/DialogTitle";
+// modal components
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
@@ -28,12 +28,15 @@ import { UpdateActor } from 'utils/API';
 
 import styles from "assets/jss/views/searchPage.js";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/100.jpg";
 
 const useStyles = makeStyles(styles);
 
 function SearchPage(props) {
   const search = useRef();
+  const waist = useRef();
+  const chest = useRef();
+  const weight = useRef();
   const [searchedActor, setSearchedActor] = useState([])
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   //trying here first
@@ -57,7 +60,7 @@ function SearchPage(props) {
     }
   }
 
-  async function removeActor(id){
+  async function removeActor(id) {
     console.log(id);
     let results = await DeleteActor(id);
     console.log(results);
@@ -66,10 +69,32 @@ function SearchPage(props) {
     );
   }
 
-  async function updateMeasurement(id,actor){
-    console.log(id);
-    let updatedMeasurement = await UpdateActor(id,actor);
+  // async function renderChanges(id){
+  //   let results = await updateMeasurement(id)
+  //   console.log(results)
+  //   setSearchedActor(
+  //     searchedActor.map( actor=> {
+  //       if (actor._id === id){
+          
+  //       }
+  //     })
+  //   )
+  // }
+
+  async function updateMeasurement(id, actor) {
+    console.log(id, actor);
+    let editActor = JSON.parse(JSON.stringify(actor));
+    editActor.measurements[0].weight = weight.current.value;
+    editActor.measurements[0].waist = waist.current.value;
+    editActor.measurements[0].chest = chest.current.value;
+    console.log(editActor)
+    let updatedMeasurement = await UpdateActor(id, editActor);
     console.log(updatedMeasurement);
+    setSearchedActor(
+      searchedActor.map((actor) => {
+        return actor._id === id ? editActor : actor;
+      })
+    );
   }
 
   return (
@@ -77,7 +102,7 @@ function SearchPage(props) {
       <Header
         absolute
         color="info"
-        brand="Shaun Was Here"
+        brand="Blood Falcon Project 3"
         rightLinks={<HeaderLinks />}
         {...rest}
       />
@@ -135,17 +160,21 @@ function SearchPage(props) {
                               <GridContainer justify="center">
                                 <GridItem xs={12} sm={12} md={8}>
                                   <div>
-                                    <Button size="sm" onClick={()=>removeActor(actor._id)} className={classes.round} style={{ float: "right" }} type="button" color="danger">
+                                    <Button size="sm" onClick={() => removeActor(actor._id)} className={classes.round} style={{ float: "right" }} type="button" color="danger">
                                       X
                                     </Button>
                                   </div>
                                   <br></br>
-                                  <h2 className={classes.title}>Actor Name</h2>
+                                  <br></br>
                                 </GridItem>
+                                <GridContainer justify="center">
+                                  <h2 className={classes.title}>Actor Name</h2>
+                                </GridContainer>
                               </GridContainer>
                               <GridContainer justify="center">
-                              <Avatar alt={`${actor.firstname} ${actor.lastname}`} src={actor.image} />
+                                <Avatar alt={`${actor.firstname} ${actor.lastname}`} src={actor.image} />
                               </GridContainer>
+
                               <GridContainer justify="center">
                                 <GridItem xs={12} sm={3} md={3}>
                                   <h4>{actor.firstname}</h4>
@@ -154,31 +183,121 @@ function SearchPage(props) {
                                   <h4>{actor.lastname}</h4>
                                 </GridItem>
                               </GridContainer>
+
                               <GridContainer justify="center">
                                 <GridItem xs={12} sm={12} md={8}>
-                                  <h2 className={classes.title}>Measurements</h2>
+                                  <GridContainer justify="center">
+                                    <h2 className={classes.title}>Measurements</h2>
+                                  </GridContainer>
                                 </GridItem>
                               </GridContainer>
+
                               <GridContainer justify="center">
                                 <GridItem xs={12} sm={3} md={3}>
-                                  <h4>{actor.measurements[0].chest}</h4>
+                                  <h4>Chest: {actor.measurements[0].chest}</h4>
                                 </GridItem>
                                 <GridItem xs={12} sm={3} md={3}>
-                                  <h4>{actor.measurements[0].waist}</h4>
+                                  <h4>Waist: {actor.measurements[0].waist}</h4>
                                 </GridItem>
                                 <GridItem xs={12} sm={3} md={3}>
-                                  <h4>{actor.measurements[0].weight}</h4>
+                                  <h4>Weight: {actor.measurements[0].weight}</h4>
                                 </GridItem>
                               </GridContainer>
+
                               <div style={{ textAlign: "center" }}>
-                                <Button justify="center" type="button" color="info"onClick={()=>updateMeasurement(actor._id,actor)}>
+
+                                <Button color="info" onClick={(event) => {
+                                  console.log("Shouldnt run right away on edit")
+                                  setClassicModal(true);
+                                }} >
                                   Edit
                                 </Button>
+
+                                <Dialog
+                                  classes={{
+                                    root: classes.center,
+                                    paper: classes.modal,
+                                  }}
+                                  open={classicModal}
+                                  keepMounted
+                                  onClose={() => setClassicModal(false)}
+                                  aria-labelledby="classic-modal-slide-title"
+                                  aria-describedby="classic-modal-slide-description"
+                                >
+                                  <DialogContent
+                                    id="classic-modal-slide-description"
+                                    className={classes.modalBody}
+                                  >
+
+                                    <GridItem xs={12} sm={6} md={6} lg={6}>
+                                      <CustomInput
+                                        labelText="Weight"
+                                        id="measurements.weight"
+                                        value={actor.measurements.weight}
+                                        formControlProps={{
+                                          fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                          type: "weight",
+                                          inputRef: weight,
+
+
+                                          autoComplete: "off",
+                                        }}
+                                      />
+                                    </GridItem>
+                                    <GridItem xs={12} sm={6} md={6} lg={6}>
+                                      <CustomInput
+                                        labelText="Chest"
+                                        id="measurements.chest"
+                                        value={actor.measurements.chest}
+                                        formControlProps={{
+                                          fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                          type: "chest",
+                                          inputRef: chest,
+
+                                          autoComplete: "off",
+                                        }}
+                                      />
+                                    </GridItem>
+                                    <GridItem xs={12} sm={6} md={6} lg={6}>
+                                      <CustomInput
+                                        labelText="Waist"
+                                        id="measurements.waist"
+                                        value={actor.measurements.waist}
+                                        formControlProps={{
+                                          fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                          type: "waist",
+                                          inputRef: waist,
+
+                                          autoComplete: "off",
+                                        }}
+                                      />
+                                    </GridItem>
+
+                                    <h5>Edit Actor Measurements</h5>
+                                  </DialogContent>
+                                  <DialogActions className={classes.modalFooter}>
+                                    <Button
+                                      onClick={(event) => {
+                                        setClassicModal(false);
+                                        updateMeasurement(actor._id, actor)
+                                        handleFormSubmit(event)
+      
+                                      }} >
+                                      Submit
+                                    </Button>
+                                  </DialogActions>
+                                </Dialog>
                               </div>
                               <br></br>
                             </Card>
 
-                          );
+                    );
                         })}
                       </div>
                     ) : (
@@ -189,10 +308,10 @@ function SearchPage(props) {
               </Card>
             </GridItem>
           </GridContainer>
-        </div>
-        <Footer whiteFont />
       </div>
+      <Footer whiteFont />
     </div>
+    </div >
   );
 }
 

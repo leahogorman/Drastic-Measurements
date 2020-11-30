@@ -44,9 +44,9 @@ function Dashboard(props) {
   const { ...rest } = props;
   return (
     <div>
-      <Parallax className={classes.parallaxDashboard}>
+      <Parallax className={classes.parallaxDashboard}image={require("assets/img/black1.jpg")}>
         <div className={classes.container}>
-          <h2 className={classes.welcome}>Welcome {user?user.displayName:""} </h2>
+          <h3 className={classes.welcome}>Welcome {user?user.displayName:""} </h3>
           <div className={classes.logout}>
       {user ? 
         (
@@ -91,7 +91,7 @@ function Dashboard(props) {
                       className={classes.cardTitle}
                       style={{ textAlign: "center", fontWeight: "900" }}
                     >
-                      SEARCH
+                      SEARCH ACTOR
                     </h4>
                   </CardBody>
                 </Card>
@@ -106,7 +106,7 @@ function Dashboard(props) {
                       className={classes.cardTitle}
                       style={{ textAlign: "center", fontWeight: "900" }}
                     >
-                      ADD
+                      ADD AN ACTOR
                     </h4>
                   </CardBody>
                 </Card>
