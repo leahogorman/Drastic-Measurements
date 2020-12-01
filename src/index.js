@@ -5,8 +5,6 @@ const fastify = require('fastify')({ logger: true });
 const { isConnected } = require('./db');
 const graphqlSchema = require('./graphql');
 
-console.log(path.join(__dirname, '../public'));
-
 fastify.register(require('fastify-static'), {
   root: path.join(__dirname, '../public/build'),
   prefix: '/'
@@ -21,7 +19,7 @@ const start = async () => {
     });
 
     await isConnected;
-    await fastify.register(gqlServer.createHandler()).listen(process.env.PORT || 3100);
+    await fastify.register(gqlServer.createHandler()).listen(process.env.PORT || 3100, '0.0.0.0');
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {
     fastify.log.error(err);
