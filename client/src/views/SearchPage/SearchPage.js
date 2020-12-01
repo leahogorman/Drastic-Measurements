@@ -102,7 +102,7 @@ function SearchPage(props) {
       <Header
         absolute
         color="info"
-        brand="Blood Falcon Project 3"
+        brand="Drastic Measurements"
         rightLinks={<HeaderLinks />}
         {...rest}
       />
