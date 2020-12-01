@@ -22,9 +22,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 
-import { GetActorByFirstName } from 'utils/API';
-import { DeleteActor } from 'utils/API';
-import { UpdateActor } from 'utils/API';
+import { SearchActor, UpdateActor, DeleteActor, GetActorByFirstName } from 'utils/API';
 
 import styles from "assets/jss/views/searchPage.js";
 
@@ -52,7 +50,7 @@ function SearchPage(props) {
     event.preventDefault();
     let searchValue = search.current.value;
     try {
-      let results = await GetActorByFirstName(searchValue);
+      let results = await SearchActor(searchValue);
       setSearchedActor(results.data.ActorMany)
       console.log(results);
     } catch (err) {
