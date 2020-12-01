@@ -1,13 +1,16 @@
 // Require the framework and instantiate it
+const path = require('path');
 const { ApolloServer, gql } = require('apollo-server-fastify');
 const fastify = require('fastify')({ logger: true });
 const { isConnected } = require('./db');
 const graphqlSchema = require('./graphql');
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' };
-});
+console.log(path.join(__dirname, '../public'));
+
+fastify.register(require('fastify-static'), {
+  root: path.join(__dirname, '../public/build'),
+  prefix: '/'
+})
 
 // Run the server!
 const start = async () => {

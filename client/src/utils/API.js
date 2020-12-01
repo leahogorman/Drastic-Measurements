@@ -32,7 +32,7 @@ const getRates = function(currency) {
 };
 
 const searchActor = async function(searchString) {
-
+  //outputs values in object in graphql syntax
   const outputObject = (o) => {
     return `{${Object.keys(o).map((key) => {
       return `${key}: "${o[key]}"`;
