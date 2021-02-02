@@ -117,7 +117,7 @@ Additionally the project was done with aid from our instructors
 
 ## **Links**
 
-The Heroku live link is: 
+The Heroku live link is: https://vast-taiga-98028.herokuapp.com/
 
 The Github link is: https://github.com/jessicaz47/Project3
                 
